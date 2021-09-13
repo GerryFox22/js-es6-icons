@@ -108,7 +108,7 @@ let container = document.getElementById("container");
 
 
 // Milestone 2
-// Coloriamo le icone per tipo
+// Coloriamo le icone per tipo OK!
 
 
 // Milestone 3
@@ -127,13 +127,41 @@ let iconsColor = [
 
 // console.log(getArrayProperties(icons,"type"))
 
+// let types = getArrayProperties(icons, "type");
+// console.log(types)
 
+
+// console.log(colorIcon (icons, iconsColor))
+
+
+
+
+
+
+// Funzione che genera una copia dell'array con l'aggiunta del colore scelto in base alla proprietà inserita
+function colorIcon (array, color){
+    let types = getArrayProperties(icons, "type");
+    console.log(types)
+    
+    let newColorArray = array.map ((element) => {
+
+        let indexOfType = types.indexOf(element.type);
+
+        if ( indexOfType !== -1){
+            element.color = iconsColor[indexOfType]
+        }
+        return element;
+    });
+
+    return newColorArray;
+
+};
 
 // Creo una funzione che estrapola da un array la proprietà richiesta
 function getArrayProperties (array, property) {
     let types = [];
 
-    array.forEach((element, index) => {
+    array.forEach((element) => {
         if (! types.includes(element[property])){
             types.push(element[property]);
         }
