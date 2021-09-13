@@ -104,7 +104,7 @@ let container = document.getElementById("container");
 
 
 // Milestone 1
-// Partendo dalla seguente struttura dati , mostriamo in pagina tutte le icone disponibili come da layout.
+// Partendo dalla seguente struttura dati , mostriamo in pagina tutte le icone disponibili come da layout. OK!
 
 
 // Milestone 2
@@ -116,8 +116,33 @@ let container = document.getElementById("container");
 
 printIcons(icons, container)
 
+// Inizializziamo un array di colori
+let iconsColor = [
+    "blue",
+    "orange",
+    "turquoise",
+    "yellow",
+    "black",
+];
+
+// console.log(getArrayProperties(icons,"type"))
 
 
+
+// Creo una funzione che estrapola da un array la proprietà richiesta
+function getArrayProperties (array, property) {
+    let types = [];
+
+    array.forEach((element, index) => {
+        if (! types.includes(element[property])){
+            types.push(element[property]);
+        }
+    });
+    return types;
+}
+
+
+// Funzione che dato un array in input ne estrae il contenuto e lo stampa in HTML (Container)
 function printIcons (array , container) {
 
     let selectedIcon = "";
