@@ -101,7 +101,7 @@ const icons = [
 
 
 let container = document.getElementById("container");
-
+let select = document.getElementById("select");
 
 // Milestone 1
 // Partendo dalla seguente struttura dati , mostriamo in pagina tutte le icone disponibili come da layout. OK!
@@ -114,7 +114,6 @@ let container = document.getElementById("container");
 // Milestone 3
 // Creiamo una select con i tipi di icone e usiamola per filtrare le icone
 
-printIcons(icons, container)
 
 // Inizializziamo un array di colori
 let iconsColor = [
@@ -125,16 +124,19 @@ let iconsColor = [
     "black",
 ];
 
-// console.log(getArrayProperties(icons,"type"))
-
-// let types = getArrayProperties(icons, "type");
-// console.log(types)
+let colorIcons = colorIcon (icons, iconsColor);
+printIcons(colorIcons, container)
 
 
-// console.log(colorIcon (icons, iconsColor))
+addOptions(getArrayProperties(icons, "type"), select)
 
 
-
+select.addEventListener("change", () => {
+    let selectedValue = select.value;
+    
+    let filteredIcons = filterItems (icons, selectedValue);
+    printIcons(filteredIcons, container)
+});
 
 
 
@@ -175,13 +177,13 @@ function printIcons (array , container) {
 
     let selectedIcon = "";
 
-    icons.forEach((element) => {
+    array.forEach((element) => {
 
-        let {name, prefix, type, family} = element
+        let {name, prefix, type, family, color} = element
 
         selectedIcon += `
         <div class"icon-container">
-            <i class=" ${family} ${prefix}${name}"></i>
+            <i class=" ${family} ${prefix}${name}" style="color:${color}"></i>
             <h4 class"icon-name"> ${name} (${type}) </h4>
         </div>
         
@@ -189,4 +191,27 @@ function printIcons (array , container) {
     });
 
     container.innerHTML = selectedIcon;
+};
+
+
+// Funzione che aggiunge le opzioni da un array e le inserisce all'interno di una select
+function addOptions (array, select){
+
+    array.forEach((element) => {
+        select.innerHTML += `<option value="${element}">${element}</option>`
+    });
+};
+
+
+
+// Funzione che filtra gli elementi di un array in base al filtro dato in input 
+function filterItems (array, filter) {
+    if(filter.trim().toLowerCase() === "all"){
+        return array;
+    };
+
+    let filteredArray = array.filter ((element) => {
+        return element.type == filter;
+    });
+    return filteredArray;
 };
